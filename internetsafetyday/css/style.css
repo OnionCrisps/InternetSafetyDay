@@ -1,0 +1,423 @@
+:root {
+  font-family: 'Poppins', sans-serif;
+}
+
+/* =====================
+   Page Background
+   Title Design
+   ===================== */
+body {
+  margin: 0;
+  min-height: 100vh;
+
+  /* dynamic vars */
+  --scroll: 0;
+  --intensity: 0;
+
+  background:
+    radial-gradient(
+      circle at top,
+      hsl(
+        calc(220 + var(--scroll) * 80 + var(--intensity) * 20),
+        40%,
+        20%
+      ),
+      #436983
+    );
+
+  color: #e5e7eb;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+
+  background:
+    radial-gradient(circle at center,
+      transparent 40%,
+      rgba(0, 0, 0, 0.35) 75%
+    );
+}
+
+.big_title{
+  margin:0;
+  font-family: "Press Start 2P", system-ui;
+  text-align: center;
+  font-size: xx-large;
+  padding: 2em;
+  display: flex;
+  background-repeat: no-repeat;
+  justify-content: center;
+  background-image: url("../img/SJC\ Logo.png");
+  background-size: contain;
+  background-position: center;
+  text-shadow:
+  0 2px 4px rgba(0, 0, 0, 0.9),
+  0 6px 16px rgba(0, 0, 0, 0.7),
+  0 12px 32px rgba(0, 0, 0, 0.5);
+
+    animation: title-idle 3s ease-in-out infinite;
+}
+
+/*BIG TITLE ANIMATION*/
+@keyframes title-idle {
+  0% {
+    transform: translateY(0);
+    text-shadow:
+      0 2px 4px rgba(0, 0, 0, 0.9),
+      0 6px 16px rgba(0, 0, 0, 0.7),
+      0 12px 32px rgba(0, 0, 0, 0.5);
+  }
+  50% {
+    transform: translateY(-6px);
+    text-shadow:
+      0 4px 6px rgba(0, 0, 0, 0.95),
+      0 10px 24px rgba(0, 0, 0, 0.75),
+      0 20px 48px rgba(0, 0, 0, 0.6);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+/*++++++++++++++++++++++++++++++++++++++++++++*/
+/*Card Grid Slider */
+.card-grid {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(280px, 1fr);
+  gap: 1.5rem;
+
+  padding: 2rem;
+  overflow-x: auto;
+
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.card-grid::-webkit-scrollbar {
+  display: none; 
+}
+
+.card {
+  position: relative;
+  min-height: 280px;
+  touch-action: manipulation;
+  background: linear-gradient(145deg, #020617, #0b1220);
+  border-radius: 18px;
+  padding: 1.5rem;
+
+  border: 1px solid rgba(255, 255, 255, 0.08);
+
+  cursor: pointer;
+  overflow: hidden;
+
+  scroll-snap-align: start;
+
+  transition:
+    transform 0.35s ease,
+    box-shadow 0.35s ease;
+}
+
+/*Soft Highlight Layer*/
+.card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at top left,
+    rgba(255, 255, 255, 0.15),
+    transparent 60%
+  );
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+
+/* bottom bar */
+.card::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 4px;
+  width: 0;
+
+  background: linear-gradient(90deg, #38bdf8, #22c55e);
+  transition: width 0.35s ease;
+}
+
+/* Hover and Focus State */
+.card:hover,
+.card:focus-visible,
+.card:active {
+  transform: scale(0.96);
+  transform: translate(6px, -6px);
+  box-shadow: 0 25px 45px rgba(0, 0, 0, 0.55);
+}
+
+
+.card:hover::before,
+.card:focus-visible::before {
+  opacity: 1;
+}
+
+.card:hover::after,
+.card:focus-visible::after {
+  width: 100%;
+}
+
+/* Card Content and move up */
+.card-content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
+  transform: translateY(28px);
+
+  transition: transform 0.4s ease;
+}
+
+.card:hover .card-content,
+.card:focus-visible .card-content {
+  transform: translateY(0);
+}
+
+/* Font and Headings */
+.small_title{
+  text-align: center;
+}
+.card h3 {
+  font-size: 1.25rem;
+  margin: 0 0 0.5rem 0;
+  letter-spacing: 0.3px;
+}
+
+h2{
+  font-size: 1.8rem;
+}
+.card p {
+  font-size: 0.95rem;
+  line-height: 1.4;
+  opacity: 0.85;
+
+  margin-bottom: auto;
+}
+
+.card .icon {
+  font-size: 2.2rem;
+  margin-bottom: 0.75rem;
+  opacity: 0.9;
+}
+
+/* color variants*/
+.card.etiquette {
+  box-shadow: inset 0 0 0 1px rgba(56, 191, 248, 0.721);
+}
+
+.card.scams {
+  box-shadow: inset 0 0 0 1px rgba(251, 190, 36, 0.674);
+}
+
+.card.loot {
+  box-shadow: inset 0 0 0 1px rgba(249, 116, 22, 0.655);
+}
+
+.card.wellbeing {
+  box-shadow: inset 0 0 0 1px rgba(34, 197, 94, 0.559);
+}
+.card.privacy{
+  box-shadow: inset 0 0 0 1px rgba(103, 78, 228, 0.628);
+}
+.card.cyberbullying{
+  box-shadow: inset 0 0 0 1px rgba(242, 105, 134, 0.582);
+}
+/*Section stylings*/
+.grid-sections {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+
+  max-width: 900px;    /* keeps content from being too wide */
+  width: 100%;         /* allow shrinking on smaller screens */
+  margin: 1.5rem auto; /* center horizontally */
+
+  border: 2px solid rgba(255, 255, 255, 0.15);
+  border-radius: 15px;
+  padding: 1rem;
+
+  background: rgba(60, 83, 143, 0.237);
+  box-shadow: 0 6px 15px rgba(0,0,0,0.35);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+  display: flex;       /* make sure flex is still applied */
+}
+
+
+.content_box {
+  flex: 1 1 400px;           /* grow on wider screens, shrink on narrow screens */
+  min-width: 300px;          /* prevent text from getting too narrow */
+}
+
+.info_img {
+  width: 200px;               /* bigger image */
+  flex-shrink: 0;             /* prevents image from shrinking too much */
+}
+
+.info_img img {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .grid-sections {
+    flex-direction: column;  
+    align-items: center;
+    gap: 0.5rem;            
+  }
+
+  .info_img {
+    width: 60%;              
+    margin-top: 0.5rem;
+  }
+}
+
+
+/* Lift effect on hover */
+.summary_box:hover,
+.grid-sections:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.45);
+}
+
+
+/*INFO BOXES*/
+.info-list {
+  max-width: 700px;
+  margin: 1rem auto;
+  padding: 0;
+  list-style: none;
+}
+
+.info-list li {
+  background: rgba(255,255,255,0.05);
+  padding: 0.8rem 1rem;
+  border-radius: 10px;
+  margin-bottom: 0.6rem;
+  backdrop-filter: blur(4px);
+}
+
+.summary_box {
+  font-family: "Press Start 2P", system-ui;
+  font-size: small;
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 1.5rem 2rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 15px;
+  backdrop-filter: blur(6px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+  font-size: 1rem;
+  line-height: 1.6;
+  text-align: justify;
+  color: #e5e7eb;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  animation: color-change 10s infinite;
+}
+@keyframes color-change {
+  0%   { color: #ff4dff; }   
+  25%  { color: #4deeff; }   
+  50%  { color: #a64dff; }   
+  75%  { color: #ff8c4d; }   
+  100% { color: #ff4dff; }   
+}
+.summary_box:hover,
+.summary_box:active {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.55);
+}
+
+
+.info_start{
+  background: rgba(128, 255, 160, 0.358);
+  font-family: 'Press Start 2P', sans-serif;
+  font-size: small;
+  max-width: 800px;
+  padding: 0.8rem 1rem;
+  border-radius: 10px;
+  margin: 0.6rem auto;
+  backdrop-filter: blur(4px);
+}
+
+.info_subhead{
+  background: rgba(128, 181, 255, 0.358);
+  font-family: 'Press Start 2P', sans-serif;
+  font-size: small;
+  max-width: fit-content;
+  padding: 0.8rem 1rem;
+  border-radius: 10px;
+  margin: 0.6rem auto;
+  backdrop-filter: blur(4px);
+}
+
+
+@media (max-width: 768px) {
+
+  .summary_box {
+    font-size: 0.75rem;
+    text-align: left;
+    line-height: 1.8;
+    margin: 1rem;
+  }
+
+  .info_start .info_subhead{
+    font-size: 0.7rem;
+    text-align: left;
+  }
+
+  h2 {
+    font-size: 1.4rem;
+  }
+
+  .card h3 {
+    font-size: 1.1rem;
+  }
+}
+footer{
+  text-align: center;
+  font-family: 'Press Start 2P', sans-serif;
+  font-size: xx-small;
+}
+/*MUSIC*/
+#music-toggle {
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+
+  z-index: 9999; /* VERY IMPORTANT */
+
+  background: rgba(134, 227, 13, 0.797);
+  color: #e5e7eb;
+
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+
+  padding: 0.6rem 1rem;
+  font-family: "Press Start 2P", system-ui;
+  font-size: 0.6rem;
+
+  backdrop-filter: blur(6px);
+  cursor: pointer;
+}
+
+
+#music-toggle:active {
+  transform: scale(0.95);
+}
